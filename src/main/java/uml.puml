@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+package "utils" {
+interface MyCrud
+DatabaseManager ..> MyCrud
+
+
+}
+package "server" #DDDDDD {
+  RequestExecutorThread ..> ActiveUsersHandler
+  Main ..> ServerWithThreads
+  DatabaseManager ..> UrlGetterDirectly
+  UrlGetterDirectly ..|> UrlGetter
+
+}
+
+package "app" #DDDDDD {
+  Application ..> DatabaseManager
+  Main ..> Application
+
+}
+package "commands" #DDDDDD {
+  LoginCommand ..> ActiveUsersHandler
+
+}
+@enduml
